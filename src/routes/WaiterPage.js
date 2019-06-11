@@ -1,12 +1,12 @@
 import React from 'react';
 // 引入css进行页面美化
-import styles from './CustomerPage.css'
+import styles from './WaiterPage.css'
 // 导入组件
 import {Button, Table} from 'antd'
 import axios from '../utils/axios'
 
 // 组件类必须要继承React.Component，是一个模块，顾客管理子功能
-class CustomerPage extends React.Component {
+class WaiterPage extends React.Component {
   // 局部状态state
   constructor(){
     super();
@@ -23,8 +23,8 @@ class CustomerPage extends React.Component {
   // 重载数据
   reloadData(){
     this.setState({loading:true});
-    //axios.get("/customer/findAll")
-    axios.get("/customer/findAllCustomer")
+    //axios.get("/waiter/findAll")
+    axios.get("/waiter/findAll")
     .then((result)=>{
       // 将查询数据更新到state中
       this.setState({list:result.data})
@@ -44,6 +44,9 @@ class CustomerPage extends React.Component {
     },{
       title:'手机号',
       dataIndex:'telephone'
+    },{
+      title:'身份证号',
+      dataIndex:'idcard'
     },{
       title:'状态',
       dataIndex:'status'
@@ -70,7 +73,7 @@ class CustomerPage extends React.Component {
     // 返回结果 jsx(js + xml)
     return (
       <div className={styles.customer}>
-        <div className={styles.title}>顾客管理  CustomerPage</div>
+        <div className={styles.title}>员工管理  WaiterPage</div>
         <div className={styles.btns}>
           <Button>添加</Button> &nbsp;
           <Button>批量删除</Button> &nbsp;
@@ -90,4 +93,4 @@ class CustomerPage extends React.Component {
   }
 }
 
-export default CustomerPage;
+export default WaiterPage;
