@@ -39,7 +39,7 @@ class ProductPage extends React.Component {/////////////////////////////////////
       title: '确定删除这些记录吗?',
       content: '删除后数据将无法恢复',
       onOk:() => {
-        axios.post("/customer/batchDelete",{ids:this.state.ids})///////////////////////////////////////
+        axios.post("/product/batchDelete",{ids:this.state.ids})///////////////////////////////////////
         .then((result)=>{
           //批量删除后重载数据
           message.success(result.statusText)

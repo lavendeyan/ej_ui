@@ -197,3 +197,4 @@ class CategoryPage extends React.Component {
 }
 
 export default CategoryPage;
+
