@@ -1,13 +1,12 @@
-/////待完成
 import React from 'react';
 // 引入css进行页面美化
-import styles from './CustomerPage.css'
+import styles from './ProductPage.css'//////////////////////////////////////////////////
 // 导入组件
 import {Modal,Button,Table,message} from 'antd'
 import axios from '../utils/axios'
 
 // 组件类必须要继承React.Component，是一个模块，顾客管理子功能
-class CategoryPage extends React.Component {
+class ProductPage extends React.Component {////////////////////////////////////////////
   // 局部状态state
   constructor(){
     super();
@@ -21,10 +20,10 @@ class CategoryPage extends React.Component {
     this.reloadData();
   }
   //1111
-  // 重载数据
+  // 查询重载数据
   reloadData(){
     this.setState({loading:true});
-    axios.get("/customer/findAllCustomer")/////////////////////////////////////////////////////////
+    axios.get("/product/findAll")/////////////////////////////////////////////
     .then((result)=>{
       // 将查询数据更新到state中
       this.setState({list:result.data})
@@ -37,10 +36,10 @@ class CategoryPage extends React.Component {
   // 批量删除
   handleBatchDelete(){
     Modal.confirm({
-      title: '确定删除这些分类吗?',
+      title: '确定删除这些记录吗?',
       content: '删除后数据将无法恢复',
       onOk:() => {
-        axios.post("/customer/batchDelete",{ids:this.state.ids})
+        axios.post("/customer/batchDelete",{ids:this.state.ids})///////////////////////////////////////
         .then((result)=>{
           //批量删除后重载数据
           message.success(result.statusText)
@@ -53,11 +52,11 @@ class CategoryPage extends React.Component {
   // 单个删除
   handleDelete(id){
     Modal.confirm({
-      title: '确定删除这条分类吗?',
+      title: '确定删除这条记录吗?',
       content: '删除后数据将无法恢复',
       onOk:() => {
         // 删除操作
-        axios.get("/category/delete",{//////////////////////////////////
+        axios.get("/product/deleteById",{//////////////////////////////////////////////////
           params:{
             id:id
           }
@@ -72,18 +71,21 @@ class CategoryPage extends React.Component {
   }
 
 
-  // 组件类务必要重写的方法，表示页面渲染
+  // 组件类务必要重写的方法，表示页面渲染///////////////////////////////////////////////////////////
   render(){
     // 变量定义
     let columns = [{
-      title:'姓名',
-      dataIndex:'realname'
+      title:'产品id',
+      dataIndex:'id'
     },{
-      title:'手机号',
-      dataIndex:'telephone'
+      title:'产品名称',
+      dataIndex:'name'
     },{
-      title:'状态',
-      dataIndex:'status'
+      title:'描述',
+      dataIndex:'description'
+    },{
+      title:'价格',
+      dataIndex:'price'
     },{
       title:'操作',
       width:120,
@@ -110,11 +112,11 @@ class CategoryPage extends React.Component {
       }),
     };
     
-    // 返回结果 jsx(js + xml)
+    // 返回结果 jsx(js + xml)//////////////////////////////////////////////////////////////
     return (
       <div className={styles.customer}>
         <div className={styles.title}>
-          <h1 align = "center">顾客管理  CustomerPage</h1>
+          <h1 align = "center">产品管理  ProductPage</h1>
         </div>
         <div className={styles.btns}>
           <Button>添加</Button> &nbsp;
@@ -135,4 +137,4 @@ class CategoryPage extends React.Component {
   }
 }
 
-export default CustomerPage;
+export default ProductPage;//////////////////////////////////////////
