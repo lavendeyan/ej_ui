@@ -28,9 +28,9 @@ class AddressPage extends React.Component {
   // 重载数据
   reloadData(){
     this.setState({loading:true});
-    axios.get("/")
+    axios.get("/Address/findAllAddress")
     .then((result)=>{
-      // 将查询数据更新到state中
+      // 将查询数据更新到state中  
       this.setState({list:result.data})
     })
     .finally(()=>{
@@ -38,21 +38,6 @@ class AddressPage extends React.Component {
     })
   }
 
-  // 批量删除
-  //handleBatchDelete(){
-  //  Modal.confirm({
-   //   title: '确定删除这些记录吗?',
-    //  content: '删除后数据将无法恢复',
-     // onOk:() => {
-      //  axios.post("/customer/batchDelete",{ids:this.state.ids})
-      //  .then((result)=>{
-          //批量删除后重载数据
-         // message.success(result.statusText)
-        //  this.reloadData();
-     //   })
-     // }
-   // });
- // }
 
   // 单个删除
   handleDelete(id){
