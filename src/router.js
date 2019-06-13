@@ -4,7 +4,8 @@ import IndexPage from './routes/IndexPage';
 import CustomerPage from './routes/CustomerPage';
 import WaiterPage from './routes/WaiterPage';
 import ProductPage from './routes/ProductPage';
-import CommentPage from './routes/CommentPage'
+import CommentPage from './routes/CommentPage';
+import OrderPage from './routes/OrderPage';
 
 function RouterConfig({ history }) {
   return (
@@ -19,6 +20,7 @@ function RouterConfig({ history }) {
         {/* <Route path="/order" exact component={OrderPage} /> */}
         <Route path="/waiter/findAll" exact component={WaiterPage} />
         <Route path="/product/findAll" exact component={ProductPage} />
+        <Route path="/Order/findAllOrder" exact component={OrderPage} />
         <Route path="/comment/findAllcomment" exact component={CommentPage} />
 {/* >>>>>>> 12c974fe0c9f0aeca9b2d9d5a41847b3c4248a08 */}
       </Switch>
