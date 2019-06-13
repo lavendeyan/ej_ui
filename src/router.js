@@ -6,7 +6,8 @@ import WaiterPage from './routes/WaiterPage';
 import ProductPage from './routes/ProductPage';
 import CommentPage from './routes/CommentPage';
 import OrderPage from './routes/OrderPage';
-import CategoryPage from './routes/CategoryPage'
+import CategoryPage from './routes/CategoryPage';
+import AddressPage from './routes/AddressPage';
 
 
 function RouterConfig({ history }) {
@@ -20,7 +21,8 @@ function RouterConfig({ history }) {
         {/* <Route path="/order" exact component={OrderPage} /> */}
         <Route path="/waiter/findAll" exact component={WaiterPage} />
         <Route path="/product/findAll" exact component={ProductPage} />
-        <Route path="/Order/findAllOrder" exact component={OrderPage} />
+        <Route path="/Order" exact component={OrderPage} />
+        <Route path="/Address" exact component={AddressPage} />
         <Route path="/comment/findAllcomment" exact component={CommentPage} />
         <Route path="/category/findAll" exact component={CategoryPage} />
       </Switch>

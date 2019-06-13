@@ -4,6 +4,8 @@ import styles from './OrderPage.css'
 // 导入组件
 import {Modal,Button,Table,message} from 'antd'
 import axios from '../utils/axios'
+ //import OrderForm from './OrderForm'
+import OrderupForm from './OrderupForm'
 
 // 组件类必须要继承React.Component，是一个模块，顾客管理子功能
 class OrderPage extends React.Component {
@@ -83,13 +85,18 @@ class OrderPage extends React.Component {
   saveFormRef = formRef => {
     this.formRef = formRef;
   };
-
+  // 去添加
+  toAdd(){
+    // 将默认值置空,模态框打开
+    this.setState({customer:{},visible:true})
+    // this.setState({ visible:true})
+  }
   // 去更新
-  toEdit(record){
+   toEdit(record){
 
-    // 更前先先把要更新的数据设置到state中
+    //更前先先把要更新的数据设置到state中
     this.setState({customer:record})
-    // 将record值绑定表单中
+    //将record值绑定表单中
     this.setState({visible:true})
 
   }
@@ -106,7 +113,7 @@ class OrderPage extends React.Component {
       title:'订单时间',
       dataIndex:'orderTime'
     },{
-        title:'标题',
+        title:'价格',
         dataIndex:'total'
     },{
         title:'用户id',
@@ -118,14 +125,18 @@ class OrderPage extends React.Component {
       title:'衣服编号',
       dataIndex:'addressId'
     },{
+      title:'派单时间',
+      dataIndex:'addressId'
+    },{
       title:'操作',
-      width:120,
+      width:240,
       align:"center",
       render:(text,record)=>{
         return (
           <div>
             <Button type='link' size="small" onClick={this.handleDelete.bind(this,record.id)}>删除</Button>
-            <Button type='link' size="small" onClick={this.toEdit.bind(this,record)}>修改</Button>
+            {/* <Button type='link' size="small" onClick={this.toEdit.bind(this)}>修改</Button>  */}
+            <Button type='link' size="small" onClick={this.toAdd.bind(this)}>修改</Button>
           </div>
         )
       }
@@ -159,7 +170,20 @@ class OrderPage extends React.Component {
           rowSelection={rowSelection}
           columns={columns}
           dataSource={this.state.list}/>
+          {/* <OrderForm 
+          wrappedComponentRef={this.saveFormRef} 
+          visible={this.state.visible} 
+          onCancel={this.handleCancel} 
+         onCreate={this.handleCreate}/>  */} 
+
+          <OrderupForm
+          wrappedComponentRef={this.saveFormRef}
+          visible={this.state.visible}
+          onCancel={this.handleCancel}
+          onCreate={this.handleCreate}/>
+
       </div>
+     
     )
   }
 }
