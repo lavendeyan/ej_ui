@@ -15,16 +15,14 @@ function RouterConfig({ history }) {
     <Router history={history}>
       <Switch>
         <Route path="/" exact component={IndexPage} />
-        <Route path="/customer/findAllCustomer" exact component={CustomerPage} />
-        {/* <Route path="/orderLine" exact component={OrderLinePage} /> */}
         <Route path="/customer" exact component={CustomerPage} />
-        {/* <Route path="/order" exact component={OrderPage} /> */}
-        <Route path="/waiter/findAll" exact component={WaiterPage} />
-        <Route path="/product/findAll" exact component={ProductPage} />
+        <Route path="/customer" exact component={CustomerPage} />
+        <Route path="/waiter" exact component={WaiterPage} />
+        <Route path="/product" exact component={ProductPage} />
         <Route path="/Order" exact component={OrderPage} />
         <Route path="/Address" exact component={AddressPage} />
-        <Route path="/comment/findAllcomment" exact component={CommentPage} />
-        <Route path="/category/findAll" exact component={CategoryPage} />
+        <Route path="/comment" exact component={CommentPage} />
+        <Route path="/category" exact component={CategoryPage} />
       </Switch>
     </Router>
   );
