@@ -47,6 +47,7 @@ class CustomerForm extends React.Component{
                     rules: [{ required: true, message: '请输入密码!' }],
                   })(<Input.Password />)}
                 </Form.Item>
+               
               </Form>
             </Modal>
         );

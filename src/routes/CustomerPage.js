@@ -1,10 +1,10 @@
-import React from 'react'
-import styles from './CustomerPage.css'// 引入css进行页面美化
-import {Modal,Button,Table,message} from 'antd'// 导入组件
+import React from 'react';
+// 引入css进行页面美化
+import styles from './CustomerPage.css'
+// 导入组件
+import {Modal,Button,Table,message} from 'antd'
 import axios from '../utils/axios'
 import CustomerForm from './CustomerForm'
-
-
 
 // 组件类必须要继承React.Component，是一个模块，顾客管理子功能
 class CustomerPage extends React.Component {
@@ -29,7 +29,8 @@ class CustomerPage extends React.Component {
     this.setState({loading:true});
     axios.get("/customer/findAllCustomer")
     .then((result)=>{
-      this.setState({list:result.data})// 将查询数据更新到state中
+      // 将查询数据更新到state中
+      this.setState({list:result.data})
     })
     .finally(()=>{
       this.setState({loading:false});
@@ -42,8 +43,7 @@ class CustomerPage extends React.Component {
       title: '确定删除这些记录吗?',
       content: '删除后数据将无法恢复',
       onOk:() => {
-        axios.post("/customer/batchDelete",{
-          ids:this.state.ids})
+        axios.post("/customer/batchDelete",{ids:this.state.ids})
         .then((result)=>{
           //批量删除后重载数据
           message.success(result.statusText)
@@ -68,7 +68,7 @@ class CustomerPage extends React.Component {
         .then((result)=>{
           // 删除成功后提醒消息，并且重载数据
           message.success(result.statusText);
-          this.reloadData();//重载数据？？？？？？？？？？？？？？？？？？？？
+          this.reloadData();
         })
       }
     });
@@ -79,6 +79,7 @@ class CustomerPage extends React.Component {
     this.setState({ visible: false });
   };
 
+
   // 确认按钮的事件处理函数
   handleCreate = () => {
     const form = this.formRef.props.form;
@@ -88,29 +89,33 @@ class CustomerPage extends React.Component {
       }
       // 表单校验完成后与后台通信进行保存
       axios.post("/customer/insert",values)/////////////////////////////////////////////
+      // axios.get("/customer/insert",values)
       .then((result)=>{
         message.success(result.statusText)
-        form.resetFields();// 重置表单
-        this.setState({ visible: false });// 关闭模态框
+        // 重置表单
+        form.resetFields();
+        // 关闭模态框
+        this.setState({ visible: false });
         this.reloadData();
       })
+      
     });
   };
+
 
   // 将子组件的引用在父组件中进行保存，方便后期调用
   saveFormRef = formRef => {
     this.formRef = formRef;
   };
-
   // 去添加
   toAdd(){
     // 将默认值置空,模态框打开
     this.setState({customer:{},visible:true})
-    this.setState({ visible:true})
+    // this.setState({ visible:true})
   }
-
   // 去更新
   toEdit(record){
+
     // 更前先先把要更新的数据设置到state中
     this.setState({customer:record})
     // 将record值绑定表单中
@@ -139,10 +144,8 @@ class CustomerPage extends React.Component {
       render:(text,record)=>{
         return (
           <div>
-            <Button type='link' size="small" 
-            onClick={this.handleDelete.bind(this,record.id)}>删除</Button>
-            <Button type='link' size="small" 
-            onClick={this.toEdit.bind(this,record)}>修改</Button>
+            <Button type='link' size="small" onClick={this.handleDelete.bind(this,record.id)}>删除</Button>
+            <Button type='link' size="small" onClick={this.toEdit.bind(this,record)}>修改</Button>
           </div>
         )
       }
@@ -163,13 +166,11 @@ class CustomerPage extends React.Component {
     // 返回结果 jsx(js + xml)
     return (
       <div className={styles.customer}>
-        <div className={styles.title}>
-          <h1 align = "center">顾客管理  CustomerPage</h1></div>
+        <div className={styles.title}><h1 align = "center">顾客管理  CustomerPage</h1></div>
         <div className={styles.btns}>
-          <Button 
-            onClick={this.toAdd.bind(this)}>添加</Button> &nbsp;
-          <Button 
-            onClick={this.handleBatchDelete.bind(this)}>批量删除</Button> &nbsp;
+          <Button onClick={this.toAdd.bind(this)}>添加</Button> &nbsp;
+          <Button onClick={this.handleBatchDelete.bind(this)}>批量删除</Button> &nbsp;
+          <Button type="link">导出</Button>
         </div>
         <Table 
           bordered

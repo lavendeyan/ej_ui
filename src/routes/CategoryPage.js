@@ -1,6 +1,8 @@
 import React from 'react'
-import styles from './CategoryPage.css'// 引入css进行页面美化
-import {Modal,Button,Table,message} from 'antd'// 导入组件
+// 引入css进行页面美化
+import styles from './CategoryPage.css'
+// 导入组件
+import {Modal,Button,Table,message} from 'antd'
 import axios from '../utils/axios'
 import CategoryForm from './CategoryForm'
 
@@ -43,8 +45,7 @@ class CategoryPage extends React.Component {
       title: '确定删除这些记录吗?',
       content: '删除后数据将无法恢复',
       onOk:() => {
-        axios.post("/category/batchDelete",{
-          ids:this.state.ids})
+        axios.post("/category/batchDelete",{ids:this.state.ids})
         .then((result)=>{
           //批量删除后重载数据
           message.success(result.statusText)
@@ -92,12 +93,16 @@ class CategoryPage extends React.Component {
       axios.post("/category/insert",values)/////////////////////////////////////////////
       .then((result)=>{
         message.success(result.statusText)
-        form.resetFields();// 重置表单
-        this.setState({ visible: false });// 关闭模态框
+        // 重置表单
+        form.resetFields();
+        // 关闭模态框
+        this.setState({ visible: false });
         this.reloadData();
       })
+      
     });
   };
+
 
 
   //onclick
@@ -105,12 +110,11 @@ class CategoryPage extends React.Component {
   saveFormRef = formRef => {
     this.formRef = formRef;
   };
-
   // 去添加
   toAdd(){
     // 将默认值置空,模态框打开
     this.setState({category:{},visible:true})
-    this.setState({ visible:true})
+    // this.setState({ visible:true})
   }
   // 去更新
   toEdit(record){
@@ -143,10 +147,8 @@ class CategoryPage extends React.Component {
       render:(text,record)=>{
         return (
           <div>
-            <Button type='link' size="small" 
-            onClick={this.handleDelete.bind(this,record.id)}>删除</Button>
-            <Button type='link' size="small" 
-            onClick={this.toEdit.bind(this,record)}>修改</Button>
+            <Button type='link' size="small" onClick={this.handleDelete.bind(this,record.id)}>删除</Button>
+            <Button type='link' size="small" onClick={this.toEdit.bind(this,record)}>修改</Button>
           </div>
         )
       }
@@ -170,13 +172,11 @@ class CategoryPage extends React.Component {
     // 返回结果 jsx(js + xml)
     return (
       <div className={styles.category}>
-        <div className={styles.title}>
-          <h1 align = "center">分类管理  CategoryPage</h1></div>
+        <div className={styles.title}><h1 align = "center">分类管理  CategoryPage</h1></div>
         <div className={styles.btns}>
-          <Button 
-          onClick={this.toAdd.bind(this)}>添加</Button> &nbsp;
-          <Button 
-          onClick={this.handleBatchDelete.bind(this)}>批量删除</Button> &nbsp;
+          <Button onClick={this.toAdd.bind(this)}>添加</Button> &nbsp;
+          <Button onClick={this.handleBatchDelete.bind(this)}>批量删除</Button> &nbsp;
+          <Button type="link">导出</Button>
         </div>
         <Table 
           bordered
