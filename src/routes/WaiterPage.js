@@ -1,9 +1,8 @@
 import React from 'react';
-// 引入css进行页面美化
-import styles from './WaiterPage.css'
-// 导入组件
-import {Modal,Button,Table,message} from 'antd'
+import styles from './WaiterPage.css'// 引入css进行页面美化
+import {Modal,Button,Table,message} from 'antd'// 导入组件
 import axios from '../utils/axios'
+import WaiterForm from './WaiterForm';
 
 // 组件类必须要继承React.Component，是一个模块，顾客管理子功能
 class WaiterPage extends React.Component {
@@ -14,7 +13,7 @@ class WaiterPage extends React.Component {
       ids:[], // 批量删除的时候保存的id
       list:[],
       loading:false,
-      // visible:false,  //打开visible可视窗口
+      visible:false,  //打开visible可视窗口
       waiter:{}///////////////???????????????????????????
     }
   }
@@ -28,8 +27,7 @@ class WaiterPage extends React.Component {
     this.setState({loading:true});
     axios.get("/waiter/findAll")
     .then((result)=>{
-      // 将查询数据更新到state中
-      this.setState({list:result.data})
+      this.setState({list:result.data})// 将查询数据更新到state中
     })
     .finally(()=>{
       this.setState({loading:false});
@@ -43,7 +41,8 @@ class WaiterPage extends React.Component {
       title: '确定删除这些记录吗?',
       content: '删除后数据将无法恢复',
       onOk:() => {
-        axios.post("/waiter/batchDelete",{ids:this.state.ids})
+        axios.post("/waiter/batchDelete",{
+          ids:this.state.ids})
         .then((result)=>{
           //批量删除后重载数据
           message.success(result.statusText)
@@ -79,6 +78,7 @@ class WaiterPage extends React.Component {
  handleCancel = () => {
   this.setState({ visible: false });
 };
+
 // 确认按钮的事件处理函数
 handleCreate = () => {
   const form = this.formRef.props.form;
@@ -87,37 +87,33 @@ handleCreate = () => {
       return;
     }
     // 表单校验完成后与后台通信进行保存
-    axios.post("/category/insert",values)/////////////////////////////////////////////
+    axios.post("/waiter/insert",values)/////////////////////////////////////////////
     .then((result)=>{
       message.success(result.statusText)
-      // 重置表单
-      form.resetFields();
-      // 关闭模态框
-      this.setState({ visible: false });
+      form.resetFields();// 重置表单
+      this.setState({ visible: false });// 关闭模态框
       this.reloadData();
     })
     
   });
 };
 
-
-
-//onclick
 // 将子组件的引用在父组件中进行保存，方便后期调用
 saveFormRef = formRef => {
   this.formRef = formRef;
 };
+
 // 去添加
 toAdd(){
   // 将默认值置空,模态框打开
-  this.setState({category:{},visible:true})
+  this.setState({waiter:{},visible:true})
   // this.setState({ visible:true})
 }
+
 // 去更新
 toEdit(record){
-
   // 更前先先把要更新的数据设置到state中
-  this.setState({category:record})
+  this.setState({waiter:record})
   // 将record值绑定表单中
   this.setState({visible:true})
 
@@ -130,7 +126,7 @@ toEdit(record){
   render(){
     // 变量定义
     let columns = [{
-      title:'姓名',
+      title:'工人姓名',
       dataIndex:'realname'
     },{
       title:'手机号',
@@ -143,13 +139,15 @@ toEdit(record){
       dataIndex:'status'
     },{
       title:'操作',
-      render:function(){
+      width:120,
+      align:"center",
+      render:(text,record)=>{
         return (
           <div>
-            {/* <Button type='link' size="small" onClick={this.handleDelete.bind(this,record.id)}>删除</Button>
-            <Button type='link' size="small" onClick={this.toEdit.bind(this,record)}>修改</Button> */}
-            {/* <Button type='link' size="small">删除</Button> */}
-            <Button type='link' size="small" >修改</Button>
+            <Button type='link' size="small" 
+            onClick={this.handleDelete.bind(this,record.id)}>删除</Button>
+            <Button type='link' size="small" 
+            onClick={this.toEdit.bind(this,record)}>修改</Button>
           </div>
         )
       }
@@ -171,12 +169,14 @@ toEdit(record){
     // 返回结果 jsx(js + xml)
     return (
       <div className={styles.waiter}>
-        <div className={styles.title}><h1 align = "center">员工管理  WaiterPage</h1></div>
+        <div className={styles.title}>
+          <h1 align = "center">工人管理  WaiterPage</h1></div>
         <div className={styles.btns}>
-          <Button onClick={this.toAdd.bind(this)}>添加</Button> &nbsp;
-          <Button onClick={this.handleBatchDelete.bind(this)}>删除</Button> &nbsp;
-          
-          <Button type="link">导出</Button>
+          <Button 
+            onClick={this.toAdd.bind(this)}>单个导入</Button> &nbsp;
+          <Button>批量导入</Button> &nbsp;
+          <Button 
+            onClick={this.handleBatchDelete.bind(this)}>批量删除</Button> &nbsp;
         </div>
         <Table 
           bordered
@@ -186,6 +186,11 @@ toEdit(record){
           rowSelection={rowSelection}
           columns={columns}
           dataSource={this.state.list}/>
+        <WaiterForm
+          wrappedComponentRef={this.saveFormRef}
+          visible={this.state.visible}
+          onCancel={this.handleCancel}
+          onCreate={this.handleCreate}/>
 
       </div>
     )

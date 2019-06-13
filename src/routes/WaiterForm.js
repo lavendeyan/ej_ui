@@ -1,8 +1,8 @@
+//工人信息录入（分单录入个和批量录入）批量录入还未实现
 import React from 'react';
 import {Form,Modal,Input} from 'antd'
 
-
-class CategoryForm extends React.Component{
+class WaiterForm extends React.Component{
     render(){
       const formLayout = {
         labelCol: {
@@ -21,40 +21,42 @@ class CategoryForm extends React.Component{
         
         // 将表单中没有出现的值做一个双向数据绑定
         getFieldDecorator("id");
-        getFieldDecorator("name");
-        getFieldDecorator("num");
-        // getFieldDecorator("status");
-        // getFieldDecorator("phtot");
+        getFieldDecorator("phtot");
+        getFieldDecorator("status");
 
         return (
           <Modal
               visible={visible}
-              title="添加类别信息"
+              title="录入工人信息"
               okText="提交"
               onCancel={onCancel}
               onOk={onCreate}
             >
               <Form layout="vertical" {...formLayout}>
-                <Form.Item label="类别名称">
-                  {getFieldDecorator('name', {
-                    rules: [{ required: true, message: '请输入类别名称!' }],
+                <Form.Item label="姓名">
+                  {getFieldDecorator('realname', {
+                    rules: [{ required: true, message: '请输入姓名!' }],
                   })(<Input />)}
                 </Form.Item>
-                <Form.Item label="类别库存">
-                  {getFieldDecorator('num', {
-                    rules: [{ required: true, message: '请输入类别库存!' }],
+                <Form.Item label="手机号">
+                  {getFieldDecorator('telephone', {
+                    rules: [{ required: true, message: '请输入手机号!' }],
                   })(<Input />)}
                 </Form.Item>
-                {/* <Form.Item label="密码">
+                <Form.Item label="身份证号">
+                  {getFieldDecorator('idcard', {
+                    rules: [{ required: true, message: '请输入身份证号!' }],
+                  })(<Input />)}
+                </Form.Item>
+                <Form.Item label="密码">
                   {getFieldDecorator('password', {
-                    rules: [{ required: true, message: '请输入密码!' }],
+                    rules: [{ required: true, message: '请设置密码!' }],
                   })(<Input.Password />)}
-                </Form.Item> */}
-               
+                </Form.Item>
               </Form>
             </Modal>
         );
-      }
+    }
 }
 
 // 将通过props从父组件中获取的值拿出来设置到表单元素上
@@ -69,4 +71,4 @@ const mapPropsToFields = (props)=>{
 
 export default Form.create({
   mapPropsToFields
-})(CategoryForm);
+})(WaiterForm);
