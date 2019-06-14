@@ -4,6 +4,16 @@ import styles from './OrderPage.css'
 // 导入组件
 import {Modal,Button,Table,message} from 'antd'
 import axios from '../utils/axios'
+import OrderupForm from './OrderupForm'
+
+
+import { Input } from 'antd';
+
+const Search = Input.Search;
+
+
+
+
 
 // 组件类必须要继承React.Component，是一个模块，顾客管理子功能
 class OrderPage extends React.Component {
@@ -35,6 +45,24 @@ class OrderPage extends React.Component {
       this.setState({loading:false});
     })
   }
+
+
+
+
+//  // 搜索数据
+//  reloadData(){
+//   this.setState({loading:true});
+//   axios.get("/comment/query")
+//   .then((result)=>{
+//     // 将查询数据更新到state中
+//     this.setState({list:result.data})
+//   })
+//   .finally(()=>{
+//     this.setState({loading:false});
+//   })
+// }
+
+
 
   // 批量删除
   handleBatchDelete(){
@@ -78,7 +106,23 @@ class OrderPage extends React.Component {
     this.setState({ visible: false });
   };
 
-
+// 确认按钮的事件处理函数
+handleCreate = () => {
+  const form = this.formRef.props.form;
+  form.validateFields((err, values) => {
+    if (err) {
+      return;
+    }
+    // 表单校验完成后与后台通信进行保存
+    axios.post("/Order/updateByPrimaryKey",values)/////////////////////////////////////////////
+    .then((result)=>{
+      message.success(result.statusText)
+      form.resetFields();// 重置表单
+      this.setState({ visible: false });// 关闭模态框
+      this.reloadData();
+    })
+  });
+};
   // 将子组件的引用在父组件中进行保存，方便后期调用
   saveFormRef = formRef => {
     this.formRef = formRef;
@@ -106,7 +150,7 @@ class OrderPage extends React.Component {
       title:'订单时间',
       dataIndex:'orderTime'
     },{
-        title:'标题',
+        title:'价钱',
         dataIndex:'total'
     },{
         title:'用户id',
@@ -150,6 +194,12 @@ class OrderPage extends React.Component {
         <div className={styles.btns}>
           <Button onClick={this.handleBatchDelete.bind(this)}>批量删除</Button> &nbsp;
           <Button type="link">导出</Button>
+          
+          <Search 
+          placeholder="input search text"
+          onSearch={value => console.log(value)}
+          style={{ width: 200 }}
+          />
         </div>
         <Table 
           bordered
@@ -159,6 +209,13 @@ class OrderPage extends React.Component {
           rowSelection={rowSelection}
           columns={columns}
           dataSource={this.state.list}/>
+
+          <OrderupForm
+          wrappedComponentRef={this.saveFormRef}
+          visible={this.state.visible}
+          onCancel={this.handleCancel}
+          onCreate={this.handleCreate}/>
+
       </div>
     )
   }

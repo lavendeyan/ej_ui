@@ -37,20 +37,30 @@ class AddressForm extends React.Component{
                     rules: [{ required: true, message: '请输入用户名!' }],
                   })(<Input />)}
                 </Form.Item>
+                <Form.Item label="省份">
+                  {getFieldDecorator('province', {
+                    rules: [{ required: true, message: '请输入所在省!' }],
+                  })(<Input />)}
+                </Form.Item>
                 <Form.Item label="城市">
                   {getFieldDecorator('city', {
                     rules: [{ required: true, message: '请输入城市!' }],
                   })(<Input />)}
                 </Form.Item>
+                <Form.Item label="地区">
+                  {getFieldDecorator('area', {
+                    rules: [{ required: true, message: '请输入地区!' }],
+                  })(<Input />)}
+                </Form.Item>
                 <Form.Item label="地址">
                   {getFieldDecorator('address', {
                     rules: [{ required: true, message: '请输入地址!' }],
-                  })(<Input.Password />)}
+                  })(<Input />)}
                 </Form.Item>
                 <Form.Item label="联系方式">
                   {getFieldDecorator('telephone', {
                     rules: [{ required: true, message: '请输入联系方式!' }],
-                  })(<Input.Password />)}
+                  })(<Input />)}
                 </Form.Item>
                
               </Form>
