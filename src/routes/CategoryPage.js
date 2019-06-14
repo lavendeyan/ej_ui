@@ -89,7 +89,7 @@ class CategoryPage extends React.Component {
         return;
       }
       // 表单校验完成后与后台通信进行保存
-      axios.post("/category/insert",values)/////////////////////////////////////////////
+      axios.post("/category/update",values)/////////////////////////////////////////////
       .then((result)=>{
         message.success(result.statusText)
         form.resetFields();// 重置表单

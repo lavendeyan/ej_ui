@@ -88,7 +88,7 @@ class ProductPage extends React.Component {/////////////////////////////////////
         return;
       }
       // 表单校验完成后与后台通信进行保存
-      axios.post("/product/insert",values)/////////////////////////////////////////////
+      axios.post("/product/saveOrUpdate",values)/////////////////////////////////////////////
       .then((result)=>{
         message.success(result.statusText)
         form.resetFields();// 重置表单
@@ -137,6 +137,12 @@ class ProductPage extends React.Component {/////////////////////////////////////
       title:'产品价格',
       dataIndex:'price'
     },{
+      title:'状态',
+      dataIndex:'status'
+    },{
+      title:'图片',
+      dataIndex:'id'
+    },{
       title:'操作',
       width:120,
       align:"center",
@@ -145,7 +151,8 @@ class ProductPage extends React.Component {/////////////////////////////////////
           <div>
             <Button type='link' size="small" 
             onClick={this.handleDelete.bind(this,record.id)}>删除</Button>
-            <Button type='link' size="small">修改</Button>
+            <Button type='link' size="small"
+            onClick={this.toEdit.bind(this,record)}>修改</Button>
           </div>
         )
       }
@@ -184,6 +191,7 @@ class ProductPage extends React.Component {/////////////////////////////////////
           columns={columns}
           dataSource={this.state.list}/>
         <ProductForm
+          initData={this.state.product}
           wrappedComponentRef={this.saveFormRef}
           visible={this.state.visible}
           onCancel={this.handleCancel}

@@ -118,6 +118,16 @@ class CustomerPage extends React.Component {
 
   }
 
+
+
+  // "id": 13,
+  // "telephone": "21",
+  // "password": "12",
+  // "realname": "21",
+  // "status": "12",
+  // "photo": "12",
+  // "address": null
+
   
 
   // 组件类务必要重写的方法，表示页面渲染

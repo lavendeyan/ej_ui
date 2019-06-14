@@ -34,6 +34,11 @@ class ProductForm extends React.Component{
             >
 
               <Form layout="vertical" {...formLayout}>
+              <Form.Item label="产品id">
+                  {getFieldDecorator('id', {
+                    rules: [{ required: true, message: '请输入产品名称!' }],
+                  })(<Input />)}
+                </Form.Item>
                 <Form.Item label="产品名称">
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: '请输入产品名称!' }],
@@ -47,6 +52,21 @@ class ProductForm extends React.Component{
                 <Form.Item label="产品价格">
                   {getFieldDecorator('price', {
                     rules: [{ required: true, message: '请输入产品价格!' }],
+                  })(<Input />)}
+                </Form.Item>
+                <Form.Item label="状态">
+                  {getFieldDecorator('status', {
+                    rules: [{ required: true, message: '请输入状态!' }],
+                  })(<Input />)}
+                </Form.Item>
+                <Form.Item label="图片">
+                  {getFieldDecorator('photo', {
+                    rules: [{ required: true, message: '请上传产品图片!' }],
+                  })(<Input />)}
+                </Form.Item>
+                <Form.Item label="categoryId">
+                  {getFieldDecorator('categoryId', {
+                    rules: [{ required: true, message: '请上传产品图片!' }],
                   })(<Input />)}
                 </Form.Item>
               </Form>
