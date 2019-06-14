@@ -1,43 +1,39 @@
-//工人信息录入（分单录入个和批量录入）批量录入还未实现
 import React from 'react';
 import {Form,Modal,Input} from 'antd'
 
 
 
-class WaiterForm extends React.Component{
-    render(){
-      const formLayout = {
-        labelCol: {
-          xs: { span: 24 },
-          sm: { span: 6 },
-        },
-        wrapperCol: {
-          xs: { span: 24 },
-          sm: { span: 16 },
-        },
-  }
+class WWaiterForm extends React.Component {
 
-        // 父组件传递给子组件值
-        const { visible, onCancel, onCreate, form } = this.props;
-        const { getFieldDecorator } = form;
-        
-        // 将表单中没有出现的值做一个双向数据绑定
-        getFieldDecorator("id");
-        getFieldDecorator("password");
-        // getFieldDecorator("phtot");
-
-        getFieldDecorator("phtot");
-        // getFieldDecorator("status");
-
-        return (
-          <Modal
-              visible={visible}
-              title="工人信息"
-              okText="提交"
-              onCancel={onCancel}
-              onOk={onCreate}
-            >
-              <Form layout="vertical" {...formLayout}>
+  render(){
+    const formLayout = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 6 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 16 },
+      },
+    }
+    // 父组件传递给子组件值
+    const { visible, onCancel, onCreate, form } = this.props;
+    const { getFieldDecorator } = form;
+    // 将表单中没有出现的值做一个双向数据绑定
+    getFieldDecorator("id");
+    getFieldDecorator("status");
+    getFieldDecorator("photo");
+    getFieldDecorator("idcard");
+    getFieldDecorator("password");
+    return (
+      <Modal
+          visible={visible}
+          title="工人信息"
+          okText="提交"
+          onCancel={onCancel}
+          onOk={onCreate}
+        >
+          <Form layout="vertical" {...formLayout}>
               <Form.Item label="工人id">
                   {getFieldDecorator('id', {
                     rules: [{ required: true, message: '请输入工人id!' }],
@@ -74,11 +70,10 @@ class WaiterForm extends React.Component{
                   })(<Input />)}
                 </Form.Item>
               </Form>
-            </Modal>
-        );
-    }
+        </Modal>
+    );
+  }
 }
-
 // 将通过props从父组件中获取的值拿出来设置到表单元素上
 const mapPropsToFields = (props)=>{
   let obj = {};
@@ -91,4 +86,4 @@ const mapPropsToFields = (props)=>{
 
 export default Form.create({
   mapPropsToFields
-})(WaiterForm);
+})(WWaiterForm);

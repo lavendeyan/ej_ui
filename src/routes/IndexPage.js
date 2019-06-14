@@ -71,7 +71,7 @@ class IndexPage extends React.Component {
               </Link>
             </Menu.Item>
             <Menu.Item key="6">
-            <Link to="/comment">
+            <Link to="/order">
                 <span className={styles.span}>订单管理</span>
               </Link>
             </Menu.Item>

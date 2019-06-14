@@ -87,7 +87,7 @@ handleCreate = () => {
       return;
     }
     // 表单校验完成后与后台通信进行保存
-    axios.post("/waiter/insert",values)/////////////////////////////////////////////
+    axios.post("/waiter/Update",values)/////////////////////////////////////////////
     .then((result)=>{
       message.success(result.statusText)
       form.resetFields();// 重置表单
@@ -126,17 +126,26 @@ toEdit(record){
   render(){
     // 变量定义
     let columns = [{
+      title:'工人id',
+      dataIndex:'id'
+    },{
       title:'工人姓名',
       dataIndex:'realname'
-    },{
-      title:'手机号',
-      dataIndex:'telephone'
     },{
       title:'身份证号',
       dataIndex:'idcard'
     },{
+      title:'手机号',
+      dataIndex:'telephone'
+    },{
+      title:'密码',
+      dataIndex:'password'
+    },{
       title:'状态',
       dataIndex:'status'
+    },{
+      title:'头像名称',
+      dataIndex:'id'
     },{
       title:'操作',
       width:120,
@@ -158,7 +167,6 @@ toEdit(record){
         this.setState({
           ids:selectedRowKeys
         })
-        // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
       },
       getCheckboxProps: record => ({
         disabled: record.name === 'Disabled User', // Column configuration not to be checked
@@ -187,6 +195,7 @@ toEdit(record){
           columns={columns}
           dataSource={this.state.list}/>
         <WaiterForm
+          initData={this.state.waiter}
           wrappedComponentRef={this.saveFormRef}
           visible={this.state.visible}
           onCancel={this.handleCancel}

@@ -10,21 +10,7 @@ import CommentPage from './routes/CommentPage';
 import OrderPage from './routes/OrderPage';
 import CategoryPage from './routes/CategoryPage';
 import AddressPage from './routes/AddressPage';
-// // import styles from './router.css'
 
-// import { Menu, Icon } from 'antd';
-// const { SubMenu }  = Menu;
-
-
-// import IndexPage from './routes/IndexPage';
-// import CustomerPage from './routes/CustomerPage';
-// import WaiterPage from './routes/WaiterPage';
-// import ProductPage from './routes/ProductPage';
-// import CommentPage from './routes/CommentPage';
-// import OrderPage from './routes/OrderPage';
-// import CategoryPage from './routes/CategoryPage';
-// import AddressPage from './routes/AddressPage';
-// import WaiterPage from './routes/WaiterPage';
 // import Sider from './routes/Sider';
 
 function RouterConfig({ history }) {

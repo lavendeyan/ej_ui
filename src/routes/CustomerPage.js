@@ -19,23 +19,25 @@ class CustomerPage extends React.Component {
       customer:{}
     }
   }
+
+
   // 在生命周期钩子函数中调用重载数据
   componentDidMount(){
     this.reloadData();
   }
-  //1111
-  // 重载数据
+  // 重载数据，数据驱动
   reloadData(){
-    this.setState({loading:true});
+    this.setState({loading:true});//加载条
     axios.get("/customer/findAllCustomer")
     .then((result)=>{
       this.setState({list:result.data})// 将查询数据更新到state中
     })
     .finally(()=>{
-      this.setState({loading:false});
+      this.setState({loading:false});//关闭加载条
     })
   }
 
+  
   // 批量删除
   handleBatchDelete(){
     Modal.confirm({
@@ -68,7 +70,7 @@ class CustomerPage extends React.Component {
         .then((result)=>{
           // 删除成功后提醒消息，并且重载数据
           message.success(result.statusText);
-          this.reloadData();//重载数据？？？？？？？？？？？？？？？？？？？？
+          this.reloadData();//
         })
       }
     });
@@ -87,7 +89,7 @@ class CustomerPage extends React.Component {
         return;
       }
       // 表单校验完成后与后台通信进行保存
-      axios.post("/customer/insert",values)/////////////////////////////////////////////
+      axios.post("/customer/saveOrUpdate",values)
       .then((result)=>{
         message.success(result.statusText)
         form.resetFields();// 重置表单
@@ -118,7 +120,6 @@ class CustomerPage extends React.Component {
 
   }
 
-  
 
   // 组件类务必要重写的方法，表示页面渲染
   render() {
@@ -129,6 +130,15 @@ class CustomerPage extends React.Component {
     },{
       title:'手机号',
       dataIndex:'telephone'
+    },{
+      title:'密码',
+      dataIndex:'password'
+    },{
+      title:'图片',
+      dataIndex:'id'
+    },{
+      title:'地址',
+      dataIndex:'address'
     },{
       title:'状态',
       dataIndex:'status'
@@ -180,6 +190,7 @@ class CustomerPage extends React.Component {
           columns={columns}
           dataSource={this.state.list}/>
         <CustomerForm
+          initData={this.state.customer}
           wrappedComponentRef={this.saveFormRef}
           visible={this.state.visible}
           onCancel={this.handleCancel}
