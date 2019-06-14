@@ -118,8 +118,14 @@ class AddressPage extends React.Component {
       title:'用户名',
       dataIndex:'realname'
     },{
+      title:'省份',
+      dataIndex:'province'
+    },{
       title:'城市',
       dataIndex:'city'
+    },{
+      title:'地区',
+      dataIndex:'area'
     },{
       title:'地址',
       dataIndex:'address'
@@ -134,7 +140,7 @@ class AddressPage extends React.Component {
         return (
           <div>
             <Button type='link' size="small" onClick={this.handleDelete.bind(this,record.id)}>删除</Button>
-            <Button type='link' size="small" onClick={this.toEdit.bind(this,record)}>增加</Button>
+            {/* <Button type='link' size="small" onClick={this.toEdit.bind(this,record)}>增加</Button> */}
           </div>
         )
       }
