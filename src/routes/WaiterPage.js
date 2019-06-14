@@ -87,7 +87,7 @@ handleCreate = () => {
       return;
     }
     // 表单校验完成后与后台通信进行保存
-    axios.post("/waiter/saveOrUpdate",values)/////////////////////////////////////////////
+    axios.post("/waiter/Update",values)/////////////////////////////////////////////
     .then((result)=>{
       message.success(result.statusText)
       form.resetFields();// 重置表单

@@ -32,9 +32,19 @@ class CustomerForm extends React.Component{
               onOk={onCreate}
             >
               <Form layout="vertical" {...formLayout}>
+                {/* <Form.Item label="id">
+                  {getFieldDecorator('id', {
+                    rules: [{ required: true, message: '请输入姓名!' }],
+                  })(<Input />)}
+                </Form.Item> */}
                 <Form.Item label="姓名">
                   {getFieldDecorator('realname', {
                     rules: [{ required: true, message: '请输入姓名!' }],
+                  })(<Input />)}
+                </Form.Item>
+                <Form.Item label="密码">
+                  {getFieldDecorator('password', {
+                    rules: [{ required: true, message: '请输入手机号!' }],
                   })(<Input />)}
                 </Form.Item>
                 <Form.Item label="手机号">
@@ -42,11 +52,22 @@ class CustomerForm extends React.Component{
                     rules: [{ required: true, message: '请输入手机号!' }],
                   })(<Input />)}
                 </Form.Item>
-                <Form.Item label="密码">
-                  {getFieldDecorator('password', {
+                <Form.Item label="地址">
+                  {getFieldDecorator('address', {
                     rules: [{ required: true, message: '请输入密码!' }],
                   })(<Input.Password />)}
                 </Form.Item>
+                <Form.Item label="状态">
+                  {getFieldDecorator('status', {
+                    rules: [{ required: true, message: '请输入密码!' }],
+                  })(<Input.Password />)}
+                </Form.Item>
+                <Form.Item label="图片">
+                  {getFieldDecorator('photo', {
+                    rules: [{ required: true, message: '请输入姓名!' }],
+                  })(<Input />)}
+                </Form.Item>
+                
               </Form>
             </Modal>
         );
