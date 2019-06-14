@@ -137,6 +137,9 @@ class CategoryPage extends React.Component {
       title:'库存数量',
       dataIndex:'num'
     },{
+      title:'采购人id',
+      dataIndex:'parentId'
+    },{
       title:'操作',
       width:120,
       align:"center",
@@ -187,6 +190,7 @@ class CategoryPage extends React.Component {
           columns={columns}
           dataSource={this.state.list}/>
         <CategoryForm
+          initData={this.state.category}
           wrappedComponentRef={this.saveFormRef}
           visible={this.state.visible}
           onCancel={this.handleCancel}

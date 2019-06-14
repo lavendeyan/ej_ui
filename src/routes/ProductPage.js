@@ -23,11 +23,10 @@ class ProductPage extends React.Component {/////////////////////////////////////
   componentDidMount(){
     this.reloadData();
   }
-  //1111
   // 查询重载数据
   reloadData(){
     this.setState({loading:true});
-    axios.get("/product/findAll")/////////////////////////////////////////////
+    axios.get("/product/findAll")
     .then((result)=>{
       // 将查询数据更新到state中
       this.setState({list:result.data})
@@ -44,7 +43,7 @@ class ProductPage extends React.Component {/////////////////////////////////////
       content: '删除后数据将无法恢复',
       onOk:() => {
         axios.post("/product/batchDelete",{
-          ids:this.state.ids})///////////////////////////////////////
+          ids:this.state.ids})
         .then((result)=>{
           //批量删除后重载数据
           message.success(result.statusText)
@@ -61,7 +60,7 @@ class ProductPage extends React.Component {/////////////////////////////////////
       content: '删除后数据将无法恢复',
       onOk:() => {
         // 删除操作
-        axios.get("/product/deleteById",{//////////////////////////////////////////////////
+        axios.get("/product/deleteById",{
           params:{
             id:id
           }
@@ -88,7 +87,7 @@ class ProductPage extends React.Component {/////////////////////////////////////
         return;
       }
       // 表单校验完成后与后台通信进行保存
-      axios.post("/product/saveOrUpdate",values)/////////////////////////////////////////////
+      axios.post("/product/saveorupdate",values)
       .then((result)=>{
         message.success(result.statusText)
         form.resetFields();// 重置表单
@@ -107,7 +106,7 @@ class ProductPage extends React.Component {/////////////////////////////////////
   toAdd(){
     // 将默认值置空,模态框打开
     this.setState({product:{},visible:true})
-    //  this.setState({ visible:true})
+    this.setState({ visible:true})
   }
 
   // 去更新
@@ -201,4 +200,4 @@ class ProductPage extends React.Component {/////////////////////////////////////
   }
 }
 
-export default ProductPage;//////////////////////////////////////////
+export default ProductPage;

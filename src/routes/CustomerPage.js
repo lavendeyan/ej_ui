@@ -70,7 +70,7 @@ class CustomerPage extends React.Component {
         .then((result)=>{
           // 删除成功后提醒消息，并且重载数据
           message.success(result.statusText);
-          this.reloadData();//重载数据？？？？？？？？？？？？？？？？？？？？
+          this.reloadData();//
         })
       }
     });
@@ -89,7 +89,7 @@ class CustomerPage extends React.Component {
         return;
       }
       // 表单校验完成后与后台通信进行保存
-      axios.post("/customer/saveOrUpdate",values)/////////////////////////////////////////////
+      axios.post("/customer/saveOrUpdate",values)
       .then((result)=>{
         message.success(result.statusText)
         form.resetFields();// 重置表单
@@ -121,17 +121,6 @@ class CustomerPage extends React.Component {
   }
 
 
-
-  // "id": 13,
-  // "telephone": "21",
-  // "password": "12",
-  // "realname": "21",
-  // "status": "12",
-  // "photo": "12",
-  // "address": null
-
-  
-
   // 组件类务必要重写的方法，表示页面渲染
   render() {
     // 变量定义
@@ -146,7 +135,7 @@ class CustomerPage extends React.Component {
       dataIndex:'password'
     },{
       title:'图片',
-      dataIndex:'photo'
+      dataIndex:'id'
     },{
       title:'地址',
       dataIndex:'address'

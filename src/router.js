@@ -9,20 +9,25 @@ import OrderPage from './routes/OrderPage';
 import CategoryPage from './routes/CategoryPage';
 import AddressPage from './routes/AddressPage';
 import WWaiterPage from './routes/WWaiterPage';
+// import Sider from './routes/Sider';
 
 function RouterConfig({ history }) {
   return (
     <Router history={history}>
       <Switch>
+        {/* <Route path="/" exact component={Sider} /> */}
         <Route path="/" exact component={IndexPage} />
-        <Route path="/customer" exact component={CustomerPage} />
-        <Route path="/waiter" exact component={WaiterPage} />
-        <Route path="/wwaiter" exact component={WWaiterPage} />
-        <Route path="/product" exact component={ProductPage} />
-        <Route path="/Order" exact component={OrderPage} />
-        <Route path="/Address" exact component={AddressPage} />
-        <Route path="/comment" exact component={CommentPage} />
-        <Route path="/category" exact component={CategoryPage} />
+        {/* <Sider> */}
+          <Route path="/customer" exact component={CustomerPage} />
+          <Route path="/waiter" exact component={WaiterPage} />
+          <Route path="/wwaiter" exact component={WWaiterPage} />
+          <Route path="/product" exact component={ProductPage} />
+          <Route path="/Order" exact component={OrderPage} />
+          <Route path="/Address" exact component={AddressPage} />
+          <Route path="/comment" exact component={CommentPage} />
+          <Route path="/category" exact component={CategoryPage} />
+        {/* </Sider> */}
+        
       </Switch>
     </Router>
   );

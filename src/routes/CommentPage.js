@@ -11,8 +11,11 @@ class CommentPage extends React.Component {
   constructor(){
     super();
     this.state = {
+      ids:[], // 批量删除的时候保存的id
       list:[],
-      loading:false
+      loading:false,
+      visible:false,  //打开visible可视窗口
+      comment:{}
     }
   }
   // 在生命周期钩子函数中调用重载数据
@@ -23,7 +26,6 @@ class CommentPage extends React.Component {
   // 重载数据
   reloadData(){
     this.setState({loading:true});
-    //axios.get("/comment/findAllcomment")
     axios.get("/comment/findAllcomment")
     .then((result)=>{
       // 将查询数据更新到state中
@@ -63,7 +65,7 @@ class CommentPage extends React.Component {
     
     // 返回结果 jsx(js + xml)
     return (
-      <div className={styles.customer}>
+      <div className={styles.comment}>
         <div className={styles.title}>订单管理</div>
         <div className={styles.btns}>
           <Button>审核</Button> &nbsp;
