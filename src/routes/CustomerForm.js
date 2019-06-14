@@ -55,12 +55,12 @@ class CustomerForm extends React.Component{
                 <Form.Item label="地址">
                   {getFieldDecorator('address', {
                     rules: [{ required: true, message: '请输入密码!' }],
-                  })(<Input.Password />)}
+                  })(<Input />)}
                 </Form.Item>
                 <Form.Item label="状态">
                   {getFieldDecorator('status', {
                     rules: [{ required: true, message: '请输入密码!' }],
-                  })(<Input.Password />)}
+                  })(<Input />)}
                 </Form.Item>
                 <Form.Item label="图片">
                   {getFieldDecorator('photo', {
