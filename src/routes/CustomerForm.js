@@ -67,7 +67,6 @@ class CustomerForm extends React.Component{
                     rules: [{ required: true, message: '请输入姓名!' }],
                   })(<Input />)}
                 </Form.Item>
-                
               </Form>
             </Modal>
         );

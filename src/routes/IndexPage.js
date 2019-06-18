@@ -36,8 +36,8 @@ class IndexPage extends React.Component {
           backgroundColor:'#282b33'
         }}>
 
-          <div className={styles.logo}>
-            e洁家政
+          <div >
+            <h1 className={styles.logo}>E洁家政</h1>
           </div>
 
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} style={{
@@ -54,48 +54,42 @@ class IndexPage extends React.Component {
                 <span className={styles.span}>分类管理</span>
               </Link>
             </Menu.Item>
-
             <Menu.Item key="3">
-            <Link to="/address">
-                <span className={styles.span}>地址管理</span>
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="4">
             <Link to="/comment">
                 <span className={styles.span}>评论管理</span>
               </Link>
             </Menu.Item>
-            <Menu.Item key="5">
+            <Menu.Item key="4">
             <Link to="/waiter">
                 <span className={styles.span}>工人管理</span>
               </Link>
             </Menu.Item>
-            <Menu.Item key="6">
+            <Menu.Item key="5">
             <Link to="/order">
                 <span className={styles.span}>订单管理</span>
               </Link>
             </Menu.Item>
-            <Menu.Item key="7">
+            <Menu.Item key="6">
             <Link to="/product">
                 <span className={styles.span}>商品管理</span>
               </Link>
             </Menu.Item>
+            {/* <Menu.Item key="3">
+            <Link to="/address">
+                <span className={styles.span}>地址管理</span>
+              </Link>
+            </Menu.Item> */}
 
           </Menu>
         </Sider>
         <Layout>
           <Content>
-            <div>
-               {/* style={{  background: '#f6f9fa', minHeight: 300 }}>{this.props.children ? this.props.children : <h1 className={styles.title}>Yay! Welcome to dva!</h1> */}
-                  <div className={styles.normal}>
-                  <h1 className={styles.title}>Yay! Welcome to dva!</h1>
-                  <div className={styles.welcome} />
-                  <ul className={styles.list}>
-                  <li>To get started, edit <code>src/index.js</code> and save to reload.</li>
-                  <li><a href="https://github.com/dvajs/dva-docs/blob/master/v1/en-us/getting-started.md">Getting Started</a></li>
-                  </ul>
-                </div>
-              </div>
+            <div style={{  background: '#f6f9fa', minHeight: 300 }}>
+              {this.props.children ? this.props.children : 
+                <h1>欢迎进入E洁家政后台管理系统</h1>
+              }
+            </div>
+
           </Content>
         </Layout>
       </Layout>
