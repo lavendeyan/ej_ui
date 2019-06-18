@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './CategoryPage.css'// 引入css进行页面美化
-import {Modal,Button,Table,message} from 'antd'// 导入组件
+import {Modal,Button,Table,message,Input} from 'antd'// 导入组件
 import axios from '../utils/axios'
 import CategoryForm from './CategoryForm'
 
@@ -99,12 +99,33 @@ class CategoryPage extends React.Component {
     });
   };
 
-
-  //onclick
   // 将子组件的引用在父组件中进行保存，方便后期调用
   saveFormRef = formRef => {
     this.formRef = formRef;
   };
+    
+  //模糊查询  
+  query = (value)=>{
+    this.setState({loading:true});
+    axios.get("/category/query",{
+      params:{
+        name: value,
+  
+      }
+    })
+    .then((result)=>{
+      // 将查询数据更新到state中
+      this.setState({list:result.data})
+    })
+    .finally(()=>{
+      this.setState({loading:false});
+    })
+  }
+  
+  //搜索
+  toEarch(record){
+    alert(record);
+  }
 
   // 去添加
   toAdd(){
@@ -169,6 +190,8 @@ class CategoryPage extends React.Component {
       }),
     };
     
+    //搜索框
+    const Search = Input.Search;
 
     // 返回结果 jsx(js + xml)
     return (
@@ -180,6 +203,13 @@ class CategoryPage extends React.Component {
           onClick={this.toAdd.bind(this)}>添加</Button> &nbsp;
           <Button 
           onClick={this.handleBatchDelete.bind(this)}>批量删除</Button> &nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <Search 
+            placeholder="模糊查询"
+            onSearch={value => {this.query(value)}}
+            style={{ width: 400 }}
+          />
+          <Button onClick={this.reloadData.bind(this)}>返回</Button>
         </div>
         <Table 
           bordered
