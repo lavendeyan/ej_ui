@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './ProductPage.css'// 引入css进行页面美化
-import {Modal,Button,Table,message} from 'antd'// 导入组件
+import {Modal,Button,Table,message,Input} from 'antd'// 导入组件
 import axios from '../utils/axios'
 import ProductForm from './ProductForm'
 
@@ -102,6 +102,24 @@ class ProductPage extends React.Component {/////////////////////////////////////
     this.formRef = formRef;
   };
 
+  //模糊查询  
+  query = (value)=>{
+    this.setState({loading:true});
+    axios.get("/product/query",{
+      params:{
+        name: value,
+  
+      }
+    })
+    .then((result)=>{
+      // 将查询数据更新到state中
+      this.setState({list:result.data})
+    })
+    .finally(()=>{
+      this.setState({loading:false});
+    })
+  }
+
   // 新增产品的方法
   toAdd(){
     // 将默认值置空,模态框打开
@@ -118,7 +136,7 @@ class ProductPage extends React.Component {/////////////////////////////////////
 
   }
 
-
+  
 
   // 组件类务必要重写的方法，表示页面渲染///////////////////////////////////////////////////////////
   render(){
@@ -152,6 +170,7 @@ class ProductPage extends React.Component {/////////////////////////////////////
             onClick={this.handleDelete.bind(this,record.id)}>删除</Button>
             <Button type='link' size="small"
             onClick={this.toEdit.bind(this,record)}>修改</Button>
+            
           </div>
         )
       }
@@ -168,6 +187,9 @@ class ProductPage extends React.Component {/////////////////////////////////////
         name: record.name,
       }),
     };
+
+    //搜索框
+  const Search = Input.Search;
     
     // 返回结果 jsx(js + xml)//////////////////////////////////////////////////////////////
     return (
@@ -180,6 +202,13 @@ class ProductPage extends React.Component {/////////////////////////////////////
           onClick={this.toAdd.bind(this)}>新增产品</Button> &nbsp;
           <Button 
           onClick={this.handleBatchDelete.bind(this)}>批量删除</Button> &nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <Search 
+            placeholder="模糊查询"
+            onSearch={value => {this.query(value)}}
+            style={{ width: 400 }}
+          />
+          <Button onClick={this.reloadData.bind(this)}>返回</Button>
         </div>
         <Table 
           bordered
