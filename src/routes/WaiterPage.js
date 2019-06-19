@@ -1,8 +1,12 @@
 import React from 'react';
 import styles from './WaiterPage.css'// 引入css进行页面美化
-import {Modal,Button,Table,message} from 'antd'// 导入组件
+import {Modal,Button,Table,message,Input,Icon,Upload, } from 'antd'// 导入组件
 import axios from '../utils/axios'
 import WaiterForm from './WaiterForm';
+import * as XLSX from 'xlsx';
+
+
+
 
 // 组件类必须要继承React.Component，是一个模块，顾客管理子功能
 class WaiterPage extends React.Component {
@@ -14,7 +18,7 @@ class WaiterPage extends React.Component {
       list:[],
       loading:false,
       visible:false,  //打开visible可视窗口
-      waiter:{}///////////////???????????????????????????
+      waiter:{}
     }
   }
   // 在生命周期钩子函数中调用重载数据
@@ -72,7 +76,6 @@ class WaiterPage extends React.Component {
       }
     });
   }
-
 
  // 取消按钮的事件处理函数
  handleCancel = () => {
@@ -144,6 +147,38 @@ toEdit(record){
 
 
 
+//批量导入
+onImportExcel = file => {
+  // 获取上传的文件对象
+  const { files } = file.target;
+  // 通过FileReader对象读取文件
+  const fileReader = new FileReader();
+  fileReader.onload = event => {
+    try {
+      const { result } = event.target;
+      // 以二进制流方式读取得到整份excel表格对象
+      const workbook = XLSX.read(result, { type: 'binary' });
+      let data = []; // 存储获取到的数据
+      // 遍历每张工作表进行读取（这里默认只读取第一张表）
+      for (const sheet in workbook.Sheets) {
+        if (workbook.Sheets.hasOwnProperty(sheet)) {
+          // 利用 sheet_to_json 方法将 excel 转成 json 数据
+          data = data.concat(XLSX.utils.sheet_to_json(workbook.Sheets[sheet]));
+          // break; // 如果只取第一张表，就取消注释这行
+        }
+      }
+      console.log(data);
+    } catch (e) {
+      // 这里可以抛出文件类型错误不正确的相关提示
+      console.log('文件类型不正确');
+      return;
+    }
+  };
+  // 以二进制方式打开文件
+  fileReader.readAsBinaryString(files[0]);
+}
+
+
 
   // 组件类务必要重写的方法，表示页面渲染
   render(){
@@ -167,13 +202,14 @@ toEdit(record){
       title:'状态',
       dataIndex:'status'
     },{
-      title:'头像名称',
+      title:'头像',
       dataIndex:'id'
     },{
       title:'操作',
       width:120,
       align:"center",
-      render:(text,record)=>{
+
+    render:(text,record)=>{
         return (
           <div>
             <Button type='link' size="small" 
@@ -197,6 +233,24 @@ toEdit(record){
       }),
     };
 
+    const props = {
+      name: 'file',
+      action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+      headers: {
+        authorization: 'authorization-text',
+      },
+      onChange(info) {
+        if (info.file.status !== 'uploading') {
+          console.log(info.file, info.fileList);
+        }
+        if (info.file.status === 'done') {
+          message.success(`${info.file.name} file uploaded successfully`);
+        } else if (info.file.status === 'error') {
+          message.error(`${info.file.name} file upload failed.`);
+        }
+      },
+    };
+
     //搜索框
     const Search = Input.Search;
     
@@ -205,20 +259,29 @@ toEdit(record){
       <div className={styles.waiter}>
         <div className={styles.title}>
           <h1 align = "center">工人管理  WaiterPage</h1></div>
-        <div className={styles.btns}>
-          <Button 
-            onClick={this.toAdd.bind(this)}>单个导入</Button> &nbsp;
-          <Button>批量导入</Button> &nbsp;
-          <Button 
-            onClick={this.handleBatchDelete.bind(this)}>批量删除</Button> &nbsp;
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <Search 
-            placeholder="模糊查询"
-            onSearch={value => {this.query(value)}}
-            style={{ width: 400 }}
-          />
-          <Button onClick={this.reloadData.bind(this)}>返回</Button>
+          <div className={styles.btns} style={{display:"flex"}}>
+          <div>
+            <Button 
+              onClick={this.toAdd.bind(this)}>单个导入</Button> &nbsp;
+            
+            <Button 
+              onClick={this.handleBatchDelete.bind(this)}>批量删除</Button> &nbsp;&nbsp;&nbsp;&nbsp;
+            <Button 
+              onClick={this.reloadData.bind(this)}>返回</Button>
+            <Search 
+              placeholder="模糊查询"
+              onSearch={value => {this.query(value)}}
+              style={{ width: 200 }}
+            />
+          </div>
+          <div>
+           <Upload {...props} accept='.xlsx, .xls'>
+              <Button  onClink={this.onImportExcel} >
+                <Icon type="upload" /> 批量导入</Button>
+            </Upload>&nbsp;
+          </div>
         </div>
+
         <Table 
           bordered
           rowKey="id"

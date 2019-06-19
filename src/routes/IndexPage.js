@@ -2,30 +2,14 @@ import React from 'react';
 import { connect } from 'dva';
 import styles from './IndexPage.css';
 import { Link } from 'dva/router';
-import { Layout, Menu} from 'antd';
-const {Sider, Content } = Layout;
+import { Layout, Menu, Icon} from 'antd';
 
+const {Sider, Content } = Layout;
 
 class IndexPage extends React.Component {
   state = {
     collapsed: false,
 };
-// function IndexPage() {
-//   return (
-//     <div className={styles.normal}>
-//       <h1 className={styles.title}>Yay! Welcome to dva!</h1>
-//       <div className={styles.welcome} />
-//       <ul className={styles.list}>
-//         <li>To get started, edit <code>src/index.js</code> and save to reload.</li>
-//         <li><a href="https://github.com/dvajs/dva-docs/blob/master/v1/en-us/getting-started.md">Getting Started</a></li>
-//       </ul>
-//     </div>
-//   );
-// }
-
-// IndexPage.propTypes = {
-
-// };
 
 
   render() {
@@ -45,18 +29,17 @@ class IndexPage extends React.Component {
             }}>
             <Menu.Item key="1">
               <Link to="/customer">
-                <span className={styles.span}>顾客管理</span>
+              <span className={styles.span}>顾客管理</span>
               </Link>
             </Menu.Item>
-
             <Menu.Item key="2">
             <Link to="/category">
                 <span className={styles.span}>分类管理</span>
               </Link>
             </Menu.Item>
             <Menu.Item key="3">
-            <Link to="/comment">
-                <span className={styles.span}>评论管理</span>
+            <Link to="/product">
+                <span className={styles.span}>商品管理</span>
               </Link>
             </Menu.Item>
             <Menu.Item key="4">
@@ -70,8 +53,8 @@ class IndexPage extends React.Component {
               </Link>
             </Menu.Item>
             <Menu.Item key="6">
-            <Link to="/product">
-                <span className={styles.span}>商品管理</span>
+            <Link to="/comment">
+                <span className={styles.span}>评论管理</span>
               </Link>
             </Menu.Item>
             {/* <Menu.Item key="3">
