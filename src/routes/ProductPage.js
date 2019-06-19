@@ -3,6 +3,8 @@ import styles from './ProductPage.css'// 引入css进行页面美化
 import {Modal,Button,Table,message,Input} from 'antd'// 导入组件
 import axios from '../utils/axios'
 import ProductForm from './ProductForm'
+import { exportExcel } from 'xlsx-oc'
+
 
 
 // 组件类必须要继承React.Component，是一个模块，顾客管理子功能
@@ -120,11 +122,25 @@ class ProductPage extends React.Component {/////////////////////////////////////
     })
   }
 
+  //搜索
+  toEarch(record){
+    alert(record);
+      }
+  //查看所有评论
+  toLook(record){
+    console.log(record);
+    //跳转
+    this.props.history.push({
+      pathname:"/productDetails",
+      payload:record
+    });
+  }
+
   // 新增产品的方法
   toAdd(){
     // 将默认值置空,模态框打开
     this.setState({product:{},visible:true})
-    this.setState({ visible:true})
+    
   }
 
   // 去更新
@@ -136,8 +152,12 @@ class ProductPage extends React.Component {/////////////////////////////////////
 
   }
 
+  toDetails(record){
+    console.log(record);
+    //跳转
+    this.props.history.push("/productDetails")
+  }
   
-
   // 组件类务必要重写的方法，表示页面渲染
   render(){
     // 变量定义
@@ -158,18 +178,26 @@ class ProductPage extends React.Component {/////////////////////////////////////
       dataIndex:'status'
     },{
       title:'图片',
-      dataIndex:'id'
+      align:"center",
+      dataIndex:'photo',
+      render:(text)=>{
+        return (
+          <img width={40} height={40} src={"http://134.175.154.93:8888/group1/"+text} alt=""/>
+        )
+      }
     },{
       title:'操作',
-      width:120,
+      width:200,
       align:"center",
       render:(text,record)=>{
         return (
           <div>
-            <Button type='link' size="small" 
-            onClick={this.handleDelete.bind(this,record.id)}>删除</Button>
+            {/* <Button type='link' size="small" 
+              onClick={this.toLook.bind(this, record)}>详情</Button> */}
             <Button type='link' size="small"
-            onClick={this.toEdit.bind(this,record)}>修改</Button>
+              onClick={this.toEdit.bind(this,record)}>修改</Button>
+            <Button type='link' size="small" 
+              onClick={this.handleDelete.bind(this,record.id)}>删除</Button>
           </div>
         )
       }
@@ -187,6 +215,17 @@ class ProductPage extends React.Component {/////////////////////////////////////
       }),
     };
 
+    const _headers = [
+      { k: 'name', v: '名称' }, 
+      { k: 'description', v: '描述' },
+      { k: 'price', v: '单价' }, 
+      { k: 'status', v: '状态' }
+    ];
+        
+    const exportDefaultExcel = () => {
+      exportExcel(_headers, this.state.list);
+    }
+
     //搜索框
   const Search = Input.Search;
     
@@ -199,6 +238,7 @@ class ProductPage extends React.Component {/////////////////////////////////////
         <div className={styles.btns}>
           <Button
           onClick={this.toAdd.bind(this)}>新增产品</Button> &nbsp;
+          <Button onClick={() => exportDefaultExcel()}>导出</Button>&nbsp;
           <Button 
           onClick={this.handleBatchDelete.bind(this)}>批量删除</Button> &nbsp;
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
