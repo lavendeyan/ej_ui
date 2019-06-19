@@ -103,6 +103,29 @@ saveFormRef = formRef => {
   this.formRef = formRef;
 };
 
+//模糊查询  
+query = (value)=>{
+  this.setState({loading:true});
+  axios.get("/waiter/query",{
+    params:{
+      realname: value,
+
+    }
+  })
+  .then((result)=>{
+    // 将查询数据更新到state中
+    this.setState({list:result.data})
+  })
+  .finally(()=>{
+    this.setState({loading:false});
+  })
+}
+
+//搜索
+toEarch(record){
+  alert(record);
+}
+
 // 去添加
 toAdd(){
   // 将默认值置空,模态框打开
@@ -173,6 +196,9 @@ toEdit(record){
         name: record.name,
       }),
     };
+
+    //搜索框
+    const Search = Input.Search;
     
     // 返回结果 jsx(js + xml)
     return (
@@ -185,6 +211,13 @@ toEdit(record){
           <Button>批量导入</Button> &nbsp;
           <Button 
             onClick={this.handleBatchDelete.bind(this)}>批量删除</Button> &nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <Search 
+            placeholder="模糊查询"
+            onSearch={value => {this.query(value)}}
+            style={{ width: 400 }}
+          />
+          <Button onClick={this.reloadData.bind(this)}>返回</Button>
         </div>
         <Table 
           bordered
