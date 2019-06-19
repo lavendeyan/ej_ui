@@ -28,41 +28,35 @@ class IndexPage extends React.Component {
               backgroundColor:'#282b33'
             }}>
             <Menu.Item key="1">
-              <Link to="/customer">
-              <span className={styles.span}>顾客管理</span>
+              <Link to="/customer"><Icon type="user" />
+              <span className={styles.span}>客户管理</span>
               </Link>
             </Menu.Item>
             <Menu.Item key="2">
-            <Link to="/category">
+            <Link to="/category"><Icon type="appstore" />
                 <span className={styles.span}>分类管理</span>
               </Link>
             </Menu.Item>
             <Menu.Item key="3">
-            <Link to="/product">
-                <span className={styles.span}>商品管理</span>
+            <Link to="/product"><Icon type="project" />
+                <span className={styles.span}>产品管理</span>
               </Link>
             </Menu.Item>
             <Menu.Item key="4">
-            <Link to="/waiter">
+            <Link to="/waiter"><Icon type="team" />
                 <span className={styles.span}>工人管理</span>
               </Link>
             </Menu.Item>
             <Menu.Item key="5">
-            <Link to="/order">
+            <Link to="/order"><Icon type="bars" />
                 <span className={styles.span}>订单管理</span>
               </Link>
             </Menu.Item>
             <Menu.Item key="6">
-            <Link to="/comment">
-                <span className={styles.span}>评论管理</span>
-              </Link>
+            <Link to="/comment"><Icon type="container" />
+              <span className={styles.span}>评论管理</span>
+            </Link>
             </Menu.Item>
-            {/* <Menu.Item key="3">
-            <Link to="/address">
-                <span className={styles.span}>地址管理</span>
-              </Link>
-            </Menu.Item> */}
-
           </Menu>
         </Sider>
         <Layout>
