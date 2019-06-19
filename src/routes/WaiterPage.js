@@ -5,9 +5,6 @@ import axios from '../utils/axios'
 import WaiterForm from './WaiterForm';
 import * as XLSX from 'xlsx';
 
-
-
-
 // 组件类必须要继承React.Component，是一个模块，顾客管理子功能
 class WaiterPage extends React.Component {
   // 局部状态state
@@ -90,7 +87,7 @@ handleCreate = () => {
       return;
     }
     // 表单校验完成后与后台通信进行保存
-    axios.post("/waiter/Update",values)/////////////////////////////////////////////
+    axios.post("/waiter/Update",values)
     .then((result)=>{
       message.success(result.statusText)
       form.resetFields();// 重置表单
@@ -206,7 +203,7 @@ onImportExcel = file => {
       dataIndex:'id'
     },{
       title:'操作',
-      width:120,
+      width:200,
       align:"center",
 
     render:(text,record)=>{
@@ -263,19 +260,18 @@ onImportExcel = file => {
           <div>
             <Button 
               onClick={this.toAdd.bind(this)}>单个导入</Button> &nbsp;
-            
             <Button 
-              onClick={this.handleBatchDelete.bind(this)}>批量删除</Button> &nbsp;&nbsp;&nbsp;&nbsp;
-            <Button 
-              onClick={this.reloadData.bind(this)}>返回</Button>
+              onClick={this.handleBatchDelete.bind(this)}>批量删除</Button> &nbsp;
             <Search 
               placeholder="模糊查询"
               onSearch={value => {this.query(value)}}
-              style={{ width: 200 }}
-            />
+              style={{ width: 400 }}
+            /> &nbsp;
+            <Button 
+              onClick={this.reloadData.bind(this)}>返回</Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           </div>
           <div>
-           <Upload {...props} accept='.xlsx, .xls'>
+           <Upload {...props} accept='.xlsx, .xls'>&nbsp;
               <Button  onClink={this.onImportExcel} >
                 <Icon type="upload" /> 批量导入</Button>
             </Upload>&nbsp;
@@ -296,7 +292,6 @@ onImportExcel = file => {
           visible={this.state.visible}
           onCancel={this.handleCancel}
           onCreate={this.handleCreate}/>
-
       </div>
     )
   }
