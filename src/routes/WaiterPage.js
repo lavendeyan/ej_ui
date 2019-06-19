@@ -263,7 +263,7 @@ onImportExcel = file => {
             <Button 
               onClick={this.handleBatchDelete.bind(this)}>批量删除</Button> &nbsp;
             <Search 
-              placeholder="模糊查询"
+              placeholder="根据工人姓名进行模糊查询"
               onSearch={value => {this.query(value)}}
               style={{ width: 400 }}
             /> &nbsp;

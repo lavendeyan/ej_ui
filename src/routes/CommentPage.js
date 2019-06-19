@@ -47,13 +47,13 @@ class CommentPage extends React.Component {
       dataIndex:'id'
     },{
       title:'订单号',
-      dataIndex:'order_id'
+      dataIndex:'orderId'
     },{
       title:'评价',
       dataIndex:'content'
     },{
       title:'日期',
-      dataIndex:'content_time'
+      dataIndex:'commentTime'
     }]
     const _headers = [
       { k: 'idcard', v: '工号' }, 
@@ -78,7 +78,7 @@ class CommentPage extends React.Component {
     // 返回结果 jsx(js + xml)
     return (
       <div className={styles.customer}>
-        <div className={styles.title}><h1 align = "center">评论管理  OrderPage</h1></div>
+        <div className={styles.title}><h1 align = "center">评论管理  CommentPage</h1></div>
         <div className={styles.btns}>
           <Button>审核</Button> &nbsp;
 

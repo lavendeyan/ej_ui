@@ -10,7 +10,7 @@ import OrderupForm from './OrderupForm'
 import { exportExcel } from 'xlsx-oc'
 import { Input } from 'antd';
 
-const Search = Input.Search;
+// const Search = Input.Search;
 
 
 
@@ -115,7 +115,7 @@ handleCreate = () => {
       return;
     }
     // 表单校验完成后与后台通信进行保存
-    axios.post("/Order/updateByPrimaryKey",values)/////////////////////////////////////////////
+    axios.post("/Order/saveOrUpdate",values)/////////////////////////////////////////////
     .then((result)=>{
       message.success(result.statusText)
       form.resetFields();// 重置表单
@@ -134,9 +134,9 @@ handleCreate = () => {
  //查询  
  query = (value)=>{
   this.setState({loading:true});
-  axios.get("/Order/queryBasic",{
+  axios.get("/Order/query",{
     params:{
-      name: value,
+      waiterId: value,
 
     }
   })
@@ -156,6 +156,12 @@ toEarch(record){
 
 
 
+  // 去添加
+  toAdd(){
+    // 将默认值置空,模态框打开
+    this.setState({customer:{},visible:true})
+    this.setState({ visible:true})
+  }
 
 
   // 去更新
@@ -206,30 +212,32 @@ toEarch(record){
     }]
 
     const _headers = [
-      { k: 'idcard', v: '工号' }, 
-      { k: 'realname', v: '姓名' },
-      { k: 'password', v: '密码' }, 
-      { k: 'telephone', v: '电话' }
+      { k: 'id', v: '工号' }, 
+      { k: 'ordertime', v: '订单时间' },
+      { k: 'total', v: '价钱' }, 
+      { k: 'customerId', v: '用户' },
+      { k: 'waiterId', v: '' },
+      { k: 'addressId', v: '电话' }
     ];
         
     const exportDefaultExcel = () => {
       exportExcel(_headers, this.state.list);
     }
-    // const rowSelection = {
-    //   onChange: (selectedRowKeys, selectedRows) => {
-    //     // 当用户操作复选按钮的时候，将值获取到并且保存到state中
-    //     this.setState({
-    //       ids:selectedRowKeys
-    //     })
-    //   },
-    //   getCheckboxProps: record => ({
-    //     disabled: record.name === 'Disabled User', // Column configuration not to be checked
-    //     name: record.name,
-    //   }),
-    // };
+    const rowSelection = {
+      onChange: (selectedRowKeys, selectedRows) => {
+        // 当用户操作复选按钮的时候，将值获取到并且保存到state中
+        this.setState({
+          ids:selectedRowKeys
+        })
+      },
+      getCheckboxProps: record => ({
+        disabled: record.name === 'Disabled User', // Column configuration not to be checked
+        name: record.name,
+      }),
+    };
     
 
-    // const Search = Input.Search;
+    const Search = Input.Search;
 
 
     return (
@@ -241,7 +249,7 @@ toEarch(record){
           <Button onClick={() => exportDefaultExcel()}>导出</Button>
           
           <Search 
-            placeholder="模糊查询"
+            placeholder="根据工人号查询"
             onSearch={value => {this.query(value)}}
             style={{ width: 400 }}
           />
@@ -258,7 +266,7 @@ toEarch(record){
           rowKey="id"
           size="small"
           loading={this.state.loading}
-          // rowSelection={rowSelection}
+          rowSelection={rowSelection}
           columns={columns}
           dataSource={this.state.list}/>
 

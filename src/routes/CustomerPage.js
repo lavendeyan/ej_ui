@@ -114,6 +114,12 @@ class CustomerPage extends React.Component {
     axios.get("/customer/query",{
       params:{
         realname: value,
+        // telephone: value,
+        // password: value,
+        // status: value,
+        // photo: value,
+        // address: value,
+     
 
       }
     })
@@ -215,7 +221,7 @@ class CustomerPage extends React.Component {
               onClick={this.handleBatchDelete.bind(this)}>批量删除</Button> &nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <Search 
-              placeholder="模糊查询"
+              placeholder="根据名称进行模糊查询"
               onSearch={value => {this.query(value)}}
               style={{ width: 400 }}
             /> &nbsp;
