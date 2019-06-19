@@ -5,6 +5,8 @@ import styles from './CommentPage.css'
 import {Button, Table} from 'antd'
 import axios from '../utils/axios'
 
+import { exportExcel } from 'xlsx-oc'
+
 // 组件类必须要继承React.Component，是一个模块，订单子功能
 class CommentPage extends React.Component {
   // 局部状态state
@@ -53,6 +55,15 @@ class CommentPage extends React.Component {
       title:'日期',
       dataIndex:'content_time'
     }]
+    const _headers = [
+      { k: 'idcard', v: '工号' }, 
+      { k: 'realname', v: '姓名' },
+      { k: 'password', v: '密码' }, 
+      { k: 'telephone', v: '电话' }
+    ];
+    const exportDefaultExcel = () => {
+      exportExcel(_headers, this.state.list);
+    }
     const rowSelection = {
       onChange: (selectedRowKeys, selectedRows) => {
         console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -61,6 +72,7 @@ class CommentPage extends React.Component {
         disabled: record.name === 'Disabled User', // Column configuration not to be checked
         name: record.name,
       }),
+      
     };
     
     // 返回结果 jsx(js + xml)
@@ -70,7 +82,10 @@ class CommentPage extends React.Component {
         <div className={styles.btns}>
           <Button>审核</Button> &nbsp;
 
-          <Button type="link">导出</Button>
+          {/* <Button type="link">导出</Button> */}
+          <Button onClick={() => exportDefaultExcel()}>导出</Button>
+          
+
         </div>
         <Table 
           bordered

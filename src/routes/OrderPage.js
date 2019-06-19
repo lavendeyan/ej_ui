@@ -7,6 +7,7 @@ import axios from '../utils/axios'
 import OrderupForm from './OrderupForm'
 
 
+import { exportExcel } from 'xlsx-oc'
 import { Input } from 'antd';
 
 const Search = Input.Search;
@@ -128,6 +129,35 @@ handleCreate = () => {
     this.formRef = formRef;
   };
 
+
+
+ //查询  
+ query = (value)=>{
+  this.setState({loading:true});
+  axios.get("/Order/queryBasic",{
+    params:{
+      name: value,
+
+    }
+  })
+  .then((result)=>{
+    // 将查询数据更新到state中
+    this.setState({list:result.data})
+  })
+  .finally(()=>{
+    this.setState({loading:false});
+  })
+}
+
+//搜索
+toEarch(record){
+  alert(record);
+}
+
+
+
+
+
   // 去更新
   toEdit(record){
 
@@ -174,39 +204,61 @@ handleCreate = () => {
         )
       }
     }]
-    const rowSelection = {
-      onChange: (selectedRowKeys, selectedRows) => {
-        // 当用户操作复选按钮的时候，将值获取到并且保存到state中
-        this.setState({
-          ids:selectedRowKeys
-        })
-      },
-      getCheckboxProps: record => ({
-        disabled: record.name === 'Disabled User', 
-        name: record.name,
-      }),
-    };
+
+    const _headers = [
+      { k: 'idcard', v: '工号' }, 
+      { k: 'realname', v: '姓名' },
+      { k: 'password', v: '密码' }, 
+      { k: 'telephone', v: '电话' }
+    ];
+        
+    const exportDefaultExcel = () => {
+      exportExcel(_headers, this.state.list);
+    }
+    // const rowSelection = {
+    //   onChange: (selectedRowKeys, selectedRows) => {
+    //     // 当用户操作复选按钮的时候，将值获取到并且保存到state中
+    //     this.setState({
+    //       ids:selectedRowKeys
+    //     })
+    //   },
+    //   getCheckboxProps: record => ({
+    //     disabled: record.name === 'Disabled User', // Column configuration not to be checked
+    //     name: record.name,
+    //   }),
+    // };
     
+
+    // const Search = Input.Search;
+
 
     return (
       <div className={styles.customer}>
         <div className={styles.title}><h1 align = "center">订单管理  OrderPage</h1></div>
         <div className={styles.btns}>
-          <Button onClick={this.handleBatchDelete.bind(this)}>批量删除</Button> &nbsp;
-          <Button type="link">导出</Button>
+          {/* <Button onClick={this.handleBatchDelete.bind(this)}>批量删除</Button> &nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */}
+          <Button onClick={() => exportDefaultExcel()}>导出</Button>
           
           <Search 
+            placeholder="模糊查询"
+            onSearch={value => {this.query(value)}}
+            style={{ width: 400 }}
+          />
+          <Button onClick={this.reloadData.bind(this)}>返回</Button>
+
+          {/* <Search 
           placeholder="input search text"
           onSearch={value => console.log(value)}
           style={{ width: 200 }}
-          />
+          /> */}
         </div>
         <Table 
           bordered
           rowKey="id"
           size="small"
           loading={this.state.loading}
-          rowSelection={rowSelection}
+          // rowSelection={rowSelection}
           columns={columns}
           dataSource={this.state.list}/>
 
