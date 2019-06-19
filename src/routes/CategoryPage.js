@@ -208,7 +208,7 @@ class CategoryPage extends React.Component {
             placeholder="模糊查询"
             onSearch={value => {this.query(value)}}
             style={{ width: 400 }}
-          />
+          /> &nbsp;
           <Button onClick={this.reloadData.bind(this)}>返回</Button>
         </div>
         <Table 

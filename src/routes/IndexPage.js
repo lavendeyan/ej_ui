@@ -16,7 +16,7 @@ class IndexPage extends React.Component {
     return (
       <Layout>
         <Sider style={{
-          height: 600,
+          height: 700,
           backgroundColor:'#282b33'
         }}>
 
@@ -61,7 +61,7 @@ class IndexPage extends React.Component {
         </Sider>
         <Layout>
           <Content>
-            <div style={{  background: '#f6f9fa', minHeight: 300 }}>
+            <div style={{  background: '#f6f9fa', minHeight: 700 }}>
               {this.props.children ? this.props.children : 
                 <h1>欢迎进入E洁家政后台管理系统</h1>
               }

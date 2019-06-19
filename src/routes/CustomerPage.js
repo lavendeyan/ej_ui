@@ -4,8 +4,6 @@ import {Modal,Button,Table,message,Input} from 'antd'// 导入组件
 import axios from '../utils/axios'
 import CustomerForm from './CustomerForm'
 
-
-
 // 组件类必须要继承React.Component，是一个模块，顾客管理子功能
 class CustomerPage extends React.Component {
   // 局部状态state
@@ -104,14 +102,13 @@ class CustomerPage extends React.Component {
     this.formRef = formRef;
   };
 
-  //详情
-  toDetails(record){
-    console.log(record);
-    //跳转
-    this.props.history.push("/customerDetails");
-    //<Link to={"/customerDetails`}>{val.title}</Link>
+  详情
+  toDetails(id){
+    //  console.log(id);
+    // //跳转
+    // this.props.history.push("/customerDetails");
   }
-    
+  //模糊查询  
   query = (value)=>{
     this.setState({loading:true});
     axios.get("/customer/query",{
@@ -181,7 +178,7 @@ class CustomerPage extends React.Component {
         return (
           <div>
             <Button type='link' size="small" 
-            onClick={this.toDetails.bind(this,record)}>详情</Button>
+            onClick={this.toDetails.bind(this,record.id)}>详情</Button>
             <Button type='link' size="small" 
             onClick={this.toEdit.bind(this,record)}>修改</Button>
             <Button type='link' size="small" 
@@ -210,21 +207,20 @@ class CustomerPage extends React.Component {
     return (
       <div className={styles.customer}>
         <div className={styles.title}>
-          <h1 align = "center">顾客管理  CustomerPage</h1>
-        </div>
-        <div className={styles.btns}>
-          <Button 
-            onClick={this.toAdd.bind(this)}>添加</Button> &nbsp;
-          <Button 
-            onClick={this.handleBatchDelete.bind(this)}>批量删除</Button> &nbsp;
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <Search 
-            placeholder="模糊查询"
-            onSearch={value => {this.query(value)}}
-            style={{ width: 400 }}
-          />
-          <Button onClick={this.reloadData.bind(this)}>返回</Button>
-        </div>
+          <h1 align = "center">顾客管理  CustomerPage</h1></div>
+          <div className={styles.btns}>
+            <Button 
+              onClick={this.toAdd.bind(this)}>添加</Button> &nbsp;
+            <Button 
+              onClick={this.handleBatchDelete.bind(this)}>批量删除</Button> &nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <Search 
+              placeholder="模糊查询"
+              onSearch={value => {this.query(value)}}
+              style={{ width: 400 }}
+            /> &nbsp;
+            <Button onClick={this.reloadData.bind(this)}>返回</Button>
+          </div>
         <Table 
           bordered
           rowKey="id"
